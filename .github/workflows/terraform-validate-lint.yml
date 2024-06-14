@@ -50,12 +50,13 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
-      - name: Terraform Lint
+      - name: Setup TFLint
       - uses: terraform-linters/setup-tflint@v4
         with:
           tflint_wrapper: true
       
-      - id: tflint
+      - name: Run TFLint
+        id: tflint
         run: tflint -f compact
       
       - run: echo ${{ steps.tflint.outputs.stdout }}

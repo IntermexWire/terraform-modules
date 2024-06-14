@@ -3,6 +3,13 @@ name: Terraform PR Workflow
 on:
     push:
 
+env:  # Define environment variables for the workflow
+  tf_actions_working_dir: 'azure/networking/vnet' 
+
+defaults:
+  run:
+    working-directory: ${{ env.tf_actions_working_dir }}
+
 jobs:
   validate:
     runs-on: ubuntu-latest
@@ -13,16 +20,27 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
+      - name: Terraform fmt
+        id: fmt
+        run: terraform fmt -check
+        continue-on-error: true
+      
+      - name: Terraform Init
+        id: init
+        run: terraform init
+      
       - name: Terraform Validate
+        id: validate
         run: terraform validate -no-color
 
   lint:
     needs: validate
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
+    #runs-on: ${{ matrix.os }}
 
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+    #strategy:
+    #  matrix:
+    #    os: [ubuntu-latest, macos-latest, windows-latest]
 
     steps:
       - name: Checkout code

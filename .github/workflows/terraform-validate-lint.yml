@@ -34,31 +34,31 @@ jobs:
         id: validate
         run: terraform validate -no-color
 
-lint:
-    #needs: validate
-    runs-on: ubuntu-latest
-    #runs-on: ${{ matrix.os }}
+  lint:
+      #needs: validate
+      runs-on: ubuntu-latest
+      #runs-on: ${{ matrix.os }}
 
-    #strategy:
-    #  matrix:
-    #    os: [ubuntu-latest, macos-latest, windows-latest]
+      #strategy:
+      #  matrix:
+      #    os: [ubuntu-latest, macos-latest, windows-latest]
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v4
 
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
+        - name: Setup Terraform
+          uses: hashicorp/setup-terraform@v3
 
-      - name: Setup TFLint
-        uses: terraform-linters/setup-tflint@v4
-        with:
-          tflint_wrapper: true
-      
-      - name: Run TFLint
-        id: tflint
-        run: tflint -f compact
-      
-      - run: echo ${{ steps.tflint.outputs.stdout }}
-      - run: echo ${{ steps.tflint.outputs.stderr }}
-      - run: echo ${{ steps.tflint.outputs.exitcode }}
+        - name: Setup TFLint
+          uses: terraform-linters/setup-tflint@v4
+          with:
+            tflint_wrapper: true
+        
+        - name: Run TFLint
+          id: tflint
+          run: tflint -f compact
+        
+        - run: echo ${{ steps.tflint.outputs.stdout }}
+        - run: echo ${{ steps.tflint.outputs.stderr }}
+        - run: echo ${{ steps.tflint.outputs.exitcode }}

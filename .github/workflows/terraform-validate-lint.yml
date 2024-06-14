@@ -5,13 +5,12 @@ on:
 
 jobs:
   TF_lint:
-      #needs: validate
-      #runs-on: ubuntu-latest
-      runs-on: ${{ matrix.os }}
+      runs-on: ubuntu-latest
+      #runs-on: ${{ matrix.os }}
 
-      strategy:
-        matrix:
-          os: [ubuntu-latest, macos-latest, windows-latest]
+      #strategy:
+      #  matrix:
+      #    os: [ubuntu-latest, macos-latest, windows-latest]
 
       steps:
         - name: Checkout code
@@ -22,7 +21,7 @@ jobs:
           with:
             tflint_wrapper: true
             tflint_version: latest
-            
+
         - name: Run TFLint
           id: tflint
           run: tflint --recursive -f compact

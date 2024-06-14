@@ -34,7 +34,7 @@ jobs:
         id: validate
         run: terraform validate -no-color
 
-  lint:
+lint:
     #needs: validate
     runs-on: ubuntu-latest
     #runs-on: ${{ matrix.os }}
@@ -51,7 +51,7 @@ jobs:
         uses: hashicorp/setup-terraform@v3
 
       - name: Setup TFLint
-      - uses: terraform-linters/setup-tflint@v4
+        uses: terraform-linters/setup-tflint@v4
         with:
           tflint_wrapper: true
       

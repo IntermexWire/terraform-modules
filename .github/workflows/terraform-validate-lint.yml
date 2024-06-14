@@ -1,0 +1,40 @@
+name: Terraform PR Workflow
+
+on:
+    push:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform Validate
+        run: terraform validate -no-color
+
+  lint:
+    needs: validate
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform Lint
+        uses: terraform-linters/setup-tflint@v4
+        with:
+          source-repo: me/tflint-config
+
+      - name: Run TFLint
+        run: tflint -f compact

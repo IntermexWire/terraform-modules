@@ -3,56 +3,29 @@ name: Terraform PR Workflow
 on:
     push:
 
-env:  # Define environment variables for the workflow
-  tf_actions_working_dir: 'azure/networking/vnet' 
-
-defaults:
-  run:
-    working-directory: ${{ env.tf_actions_working_dir }}
-
 jobs:
-  validate:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+  TF_lint:
+      runs-on: ubuntu-latest
+      #runs-on: ${{ matrix.os }}
 
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
+      #strategy:
+      #  matrix:
+      #    os: [ubuntu-latest, macos-latest, windows-latest]
 
-      - name: Terraform fmt
-        id: fmt
-        run: terraform fmt -check
-        continue-on-error: true
-      
-      - name: Terraform Init
-        id: init
-        run: terraform init
-      
-      - name: Terraform Validate
-        id: validate
-        run: terraform validate -no-color
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v4
 
-  lint:
-    needs: validate
-    runs-on: ubuntu-latest
-    #runs-on: ${{ matrix.os }}
+        - name: Setup TFLint
+          uses: terraform-linters/setup-tflint@v4
+          with:
+            tflint_wrapper: true
+            tflint_version: latest
 
-    #strategy:
-    #  matrix:
-    #    os: [ubuntu-latest, macos-latest, windows-latest]
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
-
-      - name: Terraform Lint
-        uses: terraform-linters/setup-tflint@v4
-        with:
-          source-repo: me/tflint-config
-
-      - name: Run TFLint
-        run: tflint -f compact
+        - name: Run TFLint
+          id: tflint
+          run: tflint --recursive -f compact
+        
+        - run: echo ${{ steps.tflint.outputs.stdout }}
+        - run: echo ${{ steps.tflint.outputs.stderr }}
+        - run: echo ${{ steps.tflint.outputs.exitcode }}

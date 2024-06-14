@@ -4,36 +4,6 @@ on:
     push:
 
 jobs:
-  #lidate:
-  #runs-on: ubuntu-latest
-
-  #env:  # Define environment variables for the workflow
-  #  tf_actions_working_dir: 'azure/networking/vnet' 
-
-  #defaults:
-  #  run:
-  #    working-directory: ${{ env.tf_actions_working_dir }}
-
-  #steps:
-  #  - name: Checkout code
-  #    uses: actions/checkout@v4
-
-  #  - name: Setup Terraform
-  #    uses: hashicorp/setup-terraform@v3
-
-  #  - name: Terraform fmt
-  #    id: fmt
-  #    run: terraform fmt -check
-  #    continue-on-error: true
-  #  
-  #  - name: Terraform Init
-  #    id: init
-  #    run: terraform init
-  #  
-  #  - name: Terraform Validate
-  #    id: validate
-  #    run: terraform validate -no-color
-
   TF_lint:
       #needs: validate
       #runs-on: ubuntu-latest
@@ -47,18 +17,12 @@ jobs:
         - name: Checkout code
           uses: actions/checkout@v4
 
-        #- name: Setup Terraform
-        #  uses: hashicorp/setup-terraform@v3
-
         - name: Setup TFLint
           uses: terraform-linters/setup-tflint@v4
           with:
             tflint_wrapper: true
             tflint_version: latest
-
-        #- name: Init TFLint
-        #  run: tflint --init
-        
+            
         - name: Run TFLint
           id: tflint
           run: tflint --recursive -f compact

@@ -51,9 +51,13 @@ jobs:
         uses: hashicorp/setup-terraform@v3
 
       - name: Terraform Lint
-        uses: terraform-linters/setup-tflint@v4
+      - uses: terraform-linters/setup-tflint@v4
         with:
-          tflint_version: latest
-
-      - name: Run TFLint
+          tflint_wrapper: true
+      
+      - id: tflint
         run: tflint -f compact
+      
+      - run: echo ${{ steps.tflint.outputs.stdout }}
+      - run: echo ${{ steps.tflint.outputs.stderr }}
+      - run: echo ${{ steps.tflint.outputs.exitcode }}

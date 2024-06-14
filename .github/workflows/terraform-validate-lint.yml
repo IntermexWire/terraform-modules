@@ -53,7 +53,7 @@ jobs:
       - name: Terraform Lint
         uses: terraform-linters/setup-tflint@v4
         with:
-          source-repo: me/tflint-config
+          tflint_version: latest
 
       - name: Run TFLint
         run: tflint -f compact

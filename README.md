@@ -2,6 +2,21 @@
 
 The IntermexWire Terraform Module repo provides an approach to deploying and maintaining a consistent Infrastructure-as-Code (IaC) with reusable modules.
 
+![GitHub top language](https://img.shields.io/github/languages/top/IntermexWire/terraform-modules)
+
+![GitHub last commit (branch)](https://img.shields.io/github/last-commit/IntermexWire/terraform-modules/main?logo=github&label=Last%20Main%20branch%20commit)
+[![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/w/IntermexWire/terraform-modules/main?label=Main%20branch%20commits)](https://github.com/IntermexWire/terraform-modules/commit/main)
+
+[![GitHub Release Date](https://img.shields.io/github/release-date/IntermexWire/terraform-modules)](https://github.com/IntermexWire/terraform-modules/releases)
+![GitHub Release](https://img.shields.io/github/v/release/IntermexWire/terraform-modules)
+[![GitHub Tag](https://img.shields.io/github/v/tag/IntermexWire/terraform-modules?sort=semver&link=https%3A%2F%2Fgithub.com%2FIntermexWire%2Fterraform-modules%2Ftags)](https://github.com/IntermexWire/terraform-modules/tree/v0.0.1)
+
+[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/IntermexWire/terraform-modules/terraform-validate-lint.yml?branch=main&label=Merge%20Workflow%20Status)](https://github.com/IntermexWire/terraform-modules/actions)
+
+![GitHub Repo stars](https://img.shields.io/github/stars/IntermexWire/terraform-modules)
+![GitHub forks](https://img.shields.io/github/forks/IntermexWire/terraform-modules)
+![GitHub watchers](https://img.shields.io/github/watchers/IntermexWire/terraform-modules)
+
 ## Our Goals:
 * We subcribe to the KISS (Keep it simple, stupid!) 
 * Keep code DRY (Don't Repeat Yourself).
@@ -40,7 +55,7 @@ module "resource_group" {
 Please see each modules' README for details.
 
 ## Providers
-|Name|Version|
-|--|--|
-| terraform | ~>1.7 |
-| azurerm | ~>3 |
+![Static Badge](https://img.shields.io/badge/~%3E1-tf?logo=terraform&label=Terraform&labelColor=purple&color=black)
+![Static Badge](https://img.shields.io/badge/~%3E3-azure?logo=microsoftazure&label=Azure&labelColor=blue&color=black)
+![Static Badge](https://img.shields.io/badge/~%3E4-cf?logo=cloudflare&label=CloudFlare&labelColor=grey&color=black)
+

@@ -2,6 +2,8 @@ name: Terraform PR Workflow
 
 on:
     push:
+      paths-ignore:
+        - 'README.md'
 
 jobs:
   TF_lint:

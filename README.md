@@ -2,7 +2,19 @@
 
 The IntermexWire Terraform Module repo provides an approach to deploying and maintaining a consistent Infrastructure-as-Code (IaC) with reusable modules.
 
-![GitHub last commit (branch)](https://img.shields.io/github/last-commit/IntermexWire/terraform-modules/main?logo=github&label=Last%20Main%20Branch%20Commit&link=https%3A%2F%2Fgithub.com%2FIntermexWire%2Fterraform-modules)
+![GitHub top language](https://img.shields.io/github/languages/top/IntermexWire/terraform-modules)
+
+![GitHub last commit (branch)](https://img.shields.io/github/last-commit/IntermexWire/terraform-modules/main?logo=github&label=Last%20Main%20branch%20commit)
+![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/w/IntermexWire/terraform-modules/main?label=Main%20branch%20commits)
+
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/IntermexWire/terraform-modules/terraform-validate-lint.yml?branch=main&label=Merge%20Workflow%20Status)
+
+![GitHub Tag](https://img.shields.io/github/v/tag/IntermexWire/terraform-modules?sort=semver&link=https%3A%2F%2Fgithub.com%2FIntermexWire%2Fterraform-modules%2Ftags)
+
+
+
+
+
 
 ## Our Goals:
 * We subcribe to the KISS (Keep it simple, stupid!) 

@@ -37,7 +37,7 @@ module "resource_group" {
 }
 ```
 
-Please each modules' 
+Please see each modules' README for details.
 
 ## Providers
 |Name|Version|

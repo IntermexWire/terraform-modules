@@ -2,7 +2,8 @@
 
 The IntermexWire Terraform Module repo provides an approach to deploying and maintaining a consistent Infrastructure-as-Code (IaC) with reusable modules.
 
-![GitHub last commit (branch)](https://img.shields.io/github/last-commit/:IntermexWire/:terraform-modules/:tree/main)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/:w/:IntermexWire/:terraform-modules/)
+
 
 
 ## Our Goals:

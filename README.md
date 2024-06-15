@@ -25,6 +25,17 @@ The IntermexWire Terraform Module repo provides an approach to deploying and mai
 ## Contributing
 If you want to contribute to this repository, feel free to fork it. Upon syncing to our main branch our GitHub Workflow will check your config with [TF Lint](https://github.com/terraform-linters/tflint)
 
+    Understanding TFLint Output
+    TFLint categorizes its output into three types: Errors, Warnings, and Notices.
+
+    - Errors: These are potential issues that could prevent your Terraform configuration from working as expected. You should fix these before applying your configuration.
+
+    - Warnings: These are potential issues that might not prevent your Terraform configuration from working, but could lead to unexpected behavior. It's a good idea to fix these if possible.
+
+    - Notices: These are potential areas for improvement or optimization. They won't prevent your Terraform configuration from working, but addressing them could make your configuration more efficient or easier to understand.
+
+
+
 ## Versioning
 This repository uses [Semantic Versioning](https://semver.org/). You can request a specific version of a module by using the ref parameter in the module source URL.
 

@@ -2,6 +2,8 @@ name: Terraform PR Workflow
 
 on:
     push:
+      paths-ignore:
+        - 'README.md'
 
 jobs:
   TF_lint:
@@ -19,7 +21,7 @@ jobs:
         - name: Setup TFLint
           uses: terraform-linters/setup-tflint@v4
           with:
-            tflint_wrapper: true
+            tflint_wrapper: false
             tflint_version: latest
 
         - name: Run TFLint

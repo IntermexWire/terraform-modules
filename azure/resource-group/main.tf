@@ -1,6 +1,6 @@
 resource "azurerm_resource_group" "rg" {
-
-  name     = lower(var.name)
-  location = var.location
+  count    = var.create ? length(var.locations) : 0
+  name     = var.name
+  location = element(var.locations, count.index)
   tags     = var.tags
 }

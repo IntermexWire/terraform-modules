@@ -3,13 +3,19 @@ variable "name" {
   type        = string
 }
 
-variable "location" {
-  description = "Azure resource location"
-  type        = string
+variable "locations" {
+  type = list(string)
+  default = ["eastus", "centralus"]
 }
 
 variable "tags" {
   description = "A map of tags to assign to the resource group"
   type        = map(string)
   default     = {}
+}
+
+variable "create" {
+  description = "Whether to create the resource group"
+  type        = bool
+  default     = true
 }

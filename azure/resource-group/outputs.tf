@@ -1,7 +1,9 @@
 output "name" {
-  value = azurerm_resource_group.rg.name
+  description = "The name of the resource group"
+  value       = var.create ? azurerm_resource_group.rg[0].name : null
 }
 
 output "location" {
-  value = azurerm_resource_group.rg.location
+  description = "The location of the resource group"
+  value       = var.create ? azurerm_resource_group.rg[0].location : null
 }

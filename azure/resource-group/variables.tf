@@ -4,7 +4,7 @@ variable "name" {
 }
 
 variable "locations" {
-  type = list(string)
+  type    = list(string)
   default = ["eastus", "centralus"]
 }
 

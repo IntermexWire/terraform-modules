@@ -1,6 +1,6 @@
 resource "azurerm_resource_group" "rg" {
-  count    = var.create ? length(var.locations) : 0
+  for_each = var.create ? toset(var.locations) : []
   name     = var.name
-  location = element(var.locations, count.index)
+  location = each.key
   tags     = var.tags
 }

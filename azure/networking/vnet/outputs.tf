@@ -1,11 +1,19 @@
-output "vnet_id" {
-  value = azurerm_virtual_network.vnet.id
+output "id" {
+  description = "The ID of the Virtual Network."
+  value       = { for k, v in azurerm_virtual_network.vnet : k => v.id }
 }
 
-output "public_subnet_id" {
-  value = azurerm_subnet.public_subnet.id
+output "name" {
+  description = "The name of the Virtual Network."
+  value       = { for k, v in azurerm_virtual_network.vnet : k => v.name }
 }
 
-output "private_subnet_id" {
-  value = azurerm_subnet.private_subnet.id
+output "location" {
+  description = "The location of the Virtual Network."
+  value       = { for k, v in azurerm_virtual_network.vnet : k => v.location }
+}
+
+output "address_space" {
+  description = "The address space of the vnet"
+  value       = var.address_space
 }

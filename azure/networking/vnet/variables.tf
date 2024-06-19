@@ -1,31 +1,31 @@
-variable "vnets" {
-  description = "A map of VNets and their properties"
-  type = map(object({
-    name            = string
-    location        = string
-    address_space   = list(string)
-    create          = bool # Whether to create this VNet
-    public_subnets  = list(string)
-    private_subnets = list(string)
-  }))
+variable "name" {
+  description = "Name of the vnet"
+  type        = string
 }
 
-variable "location" {
-  description = "The Azure region where resources will be created"
+variable "locations" {
+  description = "Locations of the vnets"
+  type        = list(string)
 }
 
 variable "resource_group_name" {
-  description = "The name of the resource group in which to create the VNet"
+  description = "Name of the resource group where the vnet will be created"
+  type        = string
 }
 
 variable "address_space" {
-  description = "The address space for the VNet"
+  description = "Address space of the vnet"
+  type        = list(string)
 }
 
-variable "public_subnet_prefix" {
-  description = "The address prefix for the public subnet"
+variable "tags" {
+  description = "A map of tags to assign to the vnet"
+  type        = map(string)
+  default     = {}
 }
 
-variable "private_subnet_prefix" {
-  description = "The address prefix for the private subnet"
+variable "create" {
+  description = "Whether to create the resource group"
+  type        = bool
+  default     = true
 }

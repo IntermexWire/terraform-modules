@@ -4,8 +4,7 @@ variable "name" {
 }
 
 variable "locations" {
-  type    = list(string)
-  default = ["eastus", "centralus"]
+  type = list(string)
 }
 
 variable "tags" {

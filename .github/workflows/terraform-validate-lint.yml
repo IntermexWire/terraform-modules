@@ -1,33 +1,46 @@
 name: Terraform PR Workflow
 
 on:
-    push:
-      paths-ignore:
-        - 'README.md'
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - 'README.md'
 
 jobs:
   TF_lint:
-      runs-on: ubuntu-latest
-      #runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
 
-      #strategy:
-      #  matrix:
-      #    os: [ubuntu-latest, macos-latest, windows-latest]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-      steps:
-        - name: Checkout code
-          uses: actions/checkout@v4
+      - name: Setup TFLint
+        uses: terraform-linters/setup-tflint@v1
+        with:
+          tflint_version: latest
 
-        - name: Setup TFLint
-          uses: terraform-linters/setup-tflint@v4
-          with:
-            tflint_wrapper: false
-            tflint_version: latest
+      - name: Run TFLint
+        id: tflint
+        run: tflint --recursive -f compact
 
-        - name: Run TFLint
-          id: tflint
-          run: tflint --recursive -f compact
-        
-        - run: echo ${{ steps.tflint.outputs.stdout }}
-        - run: echo ${{ steps.tflint.outputs.stderr }}
-        - run: echo ${{ steps.tflint.outputs.exitcode }}
+      - run: echo ${{ steps.tflint.outputs.stdout }}
+      - run: echo ${{ steps.tflint.outputs.stderr }}
+      - run: echo ${{ steps.tflint.outputs.exitcode }}
+
+  Create_Release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Bump version and push tag
+        id: tag_version
+        uses: mathieudutour/github-tag-action@v6.2
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create a GitHub release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: ${{ steps.tag_version.outputs.new_tag }}
+          name: Release ${{ steps.tag_version.outputs.new_tag }}
+          body: ${{ steps.tag_version.outputs.changelog }}

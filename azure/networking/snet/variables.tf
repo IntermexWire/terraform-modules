@@ -1,14 +1,16 @@
 variable "name" {
-  description = "Name of the resource group"
+  description = "Name of the subnet"
   type        = string
 }
 
 variable "resource_group_name" {
-  description = "(Required) The name of the resource group in which to create the subnet. Changing this forces a new resource to be created."
+  description = "Name of the resource group where the subnet will be created"
+  type        = string
 }
 
 variable "virtual_network_name" {
-  description = "(Required) The name of the virtual network to which to attach the subnet. Changing this forces a new resource to be created."
+  description = "The name of the virtual network to which to attach the subnet."
+  type        = string
 }
 
 variable "address_prefixes" {
@@ -19,12 +21,12 @@ variable "address_prefixes" {
 variable "service_endpoints" {
   description = "The list of Service endpoints to associate with the subnet."
   type        = list(string)
-  default     = [""]
+  default     = ["Microsoft.Storage", "Microsoft.KeyVault"]
 }
 
 variable "enable_delegation" {
   type    = bool
-  default = true
+  default = false
 }
 
 variable "subnet_delegation" {
@@ -32,8 +34,16 @@ variable "subnet_delegation" {
     name    = string
     actions = list(string)
   })
-  default = {
-    name    = "Microsoft.Web/serverFarms"
-    actions = ["Microsoft.Network/virtualNetworks/subnets/action"]
-  }
+  default = null
+}
+
+variable "create" {
+  description = "Whether to create the subnet"
+  type        = bool
+  default     = true
+}
+
+variable "locations" {
+  description = "Locations of the subnets"
+  type        = list(string)
 }

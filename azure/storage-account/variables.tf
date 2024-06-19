@@ -24,3 +24,14 @@ variable "create" {
   type        = bool
   default     = true
 }
+
+variable "subnet_id" {
+  description = "The ID of the subnet where the storage account will be secured"
+  type        = string
+}
+
+variable "ip_rules" {
+  description = "The list of whitelisted IP addresses"
+  type        = list(string)
+  default     = []
+}

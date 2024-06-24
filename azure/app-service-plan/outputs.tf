@@ -1,9 +1,14 @@
-output "app_service_plan_name" {
-  description = "The Endpoint URL of the Cognitive Services Account."
-  value       = azurerm_service_plan.app_service_plan.name
+output "names" {
+  description = "The names of the service plans"
+  value       = { for k, v in azurerm_service_plan.service_plan : k => v.name }
 }
 
-output "app_service_id" {
-  description = "The ID of the Azure Web App."
-  value       = azurerm_service_plan.app_service_plan.id
+output "ids" {
+  description = "The ids of the service plans"
+  value       = { for k, v in azurerm_service_plan.service_plan : k => v.id }
+}
+
+output "kinds" {
+  description = "The kinds of the service plans"
+  value       = { for k, v in azurerm_service_plan.service_plan : k => v.kind }
 }

@@ -40,40 +40,40 @@ variable "account_tier" {
   description = "The storage account tier"
   type        = string
   default     = "Standard"
-  
+
 }
 
 variable "account_replication_type" {
   description = "The storage account replication type"
   type        = string
   default     = "LRS"
-  
+
 }
 
-variable "min_tls_version" {  
+variable "min_tls_version" {
   description = "The minimum TLS version required for the storage account"
   type        = string
   default     = "TLS1_2"
-  
+
 }
 
 variable "infrastructure_encryption_enabled" {
   description = "Whether to enable infrastructure encryption"
   type        = bool
   default     = true
-  
+
 }
 
 variable "default_action" {
   description = "The default action for network rules"
   type        = string
   default     = "Deny"
-  
+
 }
 
 variable "bypass" {
   description = "The list of bypass rules for network rules"
   type        = list(string)
   default     = ["AzureServices"]
-  
+
 }

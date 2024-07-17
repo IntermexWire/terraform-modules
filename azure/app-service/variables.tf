@@ -3,9 +3,9 @@ variable "name" {
   type        = string
 }
 
-variable "location" {
-  description = "Region location for the resource."
-  type        = string
+variable "locations" {
+  description = "Locations of the app service plans"
+  type        = list(string)
 }
 
 variable "resource_group_name" {
@@ -54,7 +54,7 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
-
+/*
 variable "custom_hostname" {
   type        = string
   description = "(Optional) Specifies the Custom Hostname to use for the App Service"
@@ -66,6 +66,8 @@ variable "enable_custom_hostname" {
   type        = bool
   default     = false
 }
+*/
+
 
 variable "appinsights_instrumentationkey" {
   description = "(Required) App insight setting instrumentation key."
@@ -82,6 +84,7 @@ variable "applicationinsightsagent_extension_version" {
   type        = string
   default     = "~3"
 }
+
 
 variable "aspnetcore_environment" {
   description = "(Optional) App ASP .Net Core Env - defaults to Development"
@@ -101,6 +104,8 @@ variable "website_run_from_package" {
   default     = "1"
 }
 
+/*
+
 variable "connection_string_name" {
   description = "(Optional) DB connection string name"
   type        = string
@@ -119,6 +124,7 @@ variable "connection_string_value" {
   default     = null
 }
 
+
 variable "ip_restrictions" {
   type = list(object({
     ip_address = string
@@ -134,4 +140,11 @@ variable "ip_restrictions" {
   }))
   default     = []
   description = "List of IP restrictions for the App Service. Each restriction specifies an IP or a range, and the action is 'Allow' or 'Deny'."
+}
+*/
+
+variable "create" {
+  description = "Whether to create the app service plan"
+  type        = bool
+  default     = true
 }

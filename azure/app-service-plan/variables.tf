@@ -29,19 +29,19 @@ variable "os_type" {
   description = "The operating system type of the app service plan"
   type        = string
   default     = "Windows"
-  
+
 }
 
 variable "sku_name" {
   description = "The SKU name of the app service plan"
   type        = string
   default     = "B1"
-  
+
 }
 
 variable "worker_count" {
   description = "The number of workers to allocate to the app service plan"
   type        = number
   default     = 1
-  
+
 }

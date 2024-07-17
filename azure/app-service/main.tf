@@ -1,6 +1,8 @@
 resource "azurerm_windows_web_app" "app_service" {
+  for_each = var.create ? toset(var.locations) : []
+
   name                      = var.name
-  location                  = var.location
+  location                  = each.key
   resource_group_name       = var.resource_group_name
   service_plan_id           = var.service_plan_id
   virtual_network_subnet_id = var.virtual_network_subnet_id
@@ -15,22 +17,22 @@ resource "azurerm_windows_web_app" "app_service" {
       dotnet_version = var.dotnet_version
     }
 
+    /*
     # Dynamically include IP restrictions if any are provided
-    ip_restriction {
-      dynamic "ip_restriction" {
-        for_each = var.ip_restrictions
-
-        content {
-          ip_address                = ip_restriction.value.ip_address
-          action                    = ip_restriction.value.action
-          priority                  = ip_restriction.value.priority
-          name                      = ip_restriction.value.name
-          headers                   = lookup(ip_restriction.value, "headers", null)
-          service_tag               = lookup(ip_restriction.value, "service_tag", null)
-          virtual_network_subnet_id = lookup(ip_restriction.value, "virtual_network_subnet_id", null)
-        }
+    dynamic "ip_restriction" {
+      for_each = var.ip_restrictions
+      content {
+        ip_address                = ip_restriction.value.ip_address
+        action                    = ip_restriction.value.action
+        priority                  = ip_restriction.value.priority
+        name                      = ip_restriction.value.name
+        headers                   = lookup(ip_restriction.value, "headers", null)
+        service_tag               = lookup(ip_restriction.value, "service_tag", null)
+        virtual_network_subnet_id = lookup(ip_restriction.value, "virtual_network_subnet_id", null)
       }
     }
+    */
+
   }
 
   app_settings = {
@@ -42,6 +44,7 @@ resource "azurerm_windows_web_app" "app_service" {
     "WEBSITE_RUN_FROM_PACKAGE"                   = var.website_run_from_package
   }
 
+/*
   # Conditionally include the connection_string block if all its sub-variables are provided
   dynamic "connection_string" {
     for_each = var.connection_string_name != null && var.connection_string_type != null && var.connection_string_value != null ? [1] : []
@@ -51,13 +54,17 @@ resource "azurerm_windows_web_app" "app_service" {
       value = var.connection_string_value
     }
   }
+  */
+
   tags = var.tags
 }
 
+/*
 resource "azurerm_app_service_custom_hostname_binding" "app_service" {
-  count = var.enable_custom_hostname ? 1 : 0
+  for_each = var.enable_custom_hostname ? azurerm_windows_web_app.app_service : {}
 
-  hostname            = var.custom_hostname
-  app_service_name    = azurerm_windows_web_app.app_service.name
-  resource_group_name = azurerm_windows_web_app.app_service.resource_group_name
+  hostname            = each.value.custom_hostname
+  app_service_name    = each.value.name
+  resource_group_name = each.value.resource_group_name
 }
+*/

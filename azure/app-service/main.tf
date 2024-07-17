@@ -44,7 +44,7 @@ resource "azurerm_windows_web_app" "app_service" {
     "WEBSITE_RUN_FROM_PACKAGE"                   = var.website_run_from_package
   }
 
-/*
+  /*
   # Conditionally include the connection_string block if all its sub-variables are provided
   dynamic "connection_string" {
     for_each = var.connection_string_name != null && var.connection_string_type != null && var.connection_string_value != null ? [1] : []

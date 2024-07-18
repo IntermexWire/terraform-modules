@@ -3,9 +3,9 @@ variable "name" {
   type        = string
 }
 
-variable "location" {
-  description = "Azure resource location"
-  type        = string
+variable "locations" {
+  description = "Locations of the app service plans"
+  type        = list(string)
 }
 
 variable "tags" {

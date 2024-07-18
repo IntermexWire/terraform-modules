@@ -74,10 +74,12 @@ variable "appinsights_instrumentationkey" {
   type        = string
 }
 
+/*
 variable "applicationinsights_connection_string" {
   description = "(Required) App insight setting connection string."
   type        = string
 }
+*/
 
 variable "applicationinsightsagent_extension_version" {
   description = "(Required) App insight setting agent extension version."

@@ -1,11 +1,11 @@
-output "id" {
-  value = azurerm_app_service_plan.service_plan.id
+output "ids" {
+  value = {for k, v in azurerm_service_plan.service_plan : k => v.id}
 }
 
-output "kind" {
-  value = azurerm_app_service_plan.service_plan.kind
+output "kinds" {
+  value = {for k, v in azurerm_service_plan.service_plan : k => v.kind}
 }
 
-output "name" {
-  value = azurerm_app_service_plan.service_plan.name
+output "names" {
+  value = {for k, v in azurerm_service_plan.service_plan : k => v.name}
 }

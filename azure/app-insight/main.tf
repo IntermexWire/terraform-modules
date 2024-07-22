@@ -1,5 +1,5 @@
 resource "azurerm_application_insights" "appi" {
-  for_each = toset(var.locations)
+  for_each            = toset(var.locations)
   name                = var.name
   resource_group_name = var.resource_group_name
   location            = each.key
@@ -15,7 +15,7 @@ resource "azurerm_monitor_action_group" "mon_action_grp" {
 }
 
 resource "azurerm_monitor_smart_detector_alert_rule" "smart_alert_rule" {
-  for_each            = azurerm_application_insights.appi
+  for_each = azurerm_application_insights.appi
 
   name                = "${each.value.name}-alert-rule"
   resource_group_name = var.resource_group_name

@@ -11,6 +11,7 @@ variable "location" {
 variable "additional_locations" {
   description = "Additional locations for the API Management Service instances."
   type        = list(string)
+  default     = []
 }
 
 variable "resource_group_name" {
@@ -37,4 +38,10 @@ variable "tags" {
   description = "A mapping of tags to assign to the resource."
   type        = map(string)
   default     = {}
+}
+
+variable "enable_additional_locations" {
+  description = "Flag to enable additional locations."
+  type        = bool
+  default     = false
 }

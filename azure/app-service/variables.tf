@@ -13,6 +13,12 @@ variable "resource_group_name" {
   type        = string
 }
 
+variable "create" {
+  description = "Whether to create the app service plan"
+  type        = bool
+  default     = true
+}
+
 variable "service_plan_id" {
   description = "The SKU name for the resouce."
   type        = string
@@ -48,38 +54,45 @@ variable "dotnet_version" {
   type        = string
 }
 
+variable "virtual_application" {
+  description = "Configuration for the virtual application."
+  type = object({
+    virtual_path  = string
+    physical_path = string
+    preload       = bool
+  })
+}
+
+/*
+variable "app_path" {
+  description = "The virtual path for the virtual application."
+  type        = string
+  default     = "/"
+}
+
+variable "app_path_root" {
+  description = "The physical path for the virtual application."
+  type        = string
+  default     = "site\\wwwroot"
+}
+
+variable "app_preload" {
+  description = "Specifies whether the virtual application should be preloaded."
+  type        = bool
+  default     = false
+}
+*/
 
 variable "tags" {
   description = "A mapping of tags to assign to the resource."
   type        = map(string)
   default     = {}
 }
-/*
-variable "custom_hostname" {
-  type        = string
-  description = "(Optional) Specifies the Custom Hostname to use for the App Service"
-  default     = null
-}
-
-variable "enable_custom_hostname" {
-  description = "Set to true to enable custom hostname binding for the app service"
-  type        = bool
-  default     = false
-}
-*/
-
 
 variable "appinsights_instrumentationkey" {
   description = "(Required) App insight setting instrumentation key."
   type        = string
 }
-
-/*
-variable "applicationinsights_connection_string" {
-  description = "(Required) App insight setting connection string."
-  type        = string
-}
-*/
 
 variable "applicationinsightsagent_extension_version" {
   description = "(Required) App insight setting agent extension version."
@@ -107,7 +120,27 @@ variable "website_run_from_package" {
 }
 
 /*
+variable "applicationinsights_connection_string" {
+  description = "(Required) App insight setting connection string."
+  type        = string
+}
+*/
 
+/*
+variable "custom_hostname" {
+  type        = string
+  description = "(Optional) Specifies the Custom Hostname to use for the App Service"
+  default     = null
+}
+
+variable "enable_custom_hostname" {
+  description = "Set to true to enable custom hostname binding for the app service"
+  type        = bool
+  default     = false
+}
+*/
+
+/*
 variable "connection_string_name" {
   description = "(Optional) DB connection string name"
   type        = string
@@ -144,9 +177,3 @@ variable "ip_restrictions" {
   description = "List of IP restrictions for the App Service. Each restriction specifies an IP or a range, and the action is 'Allow' or 'Deny'."
 }
 */
-
-variable "create" {
-  description = "Whether to create the app service plan"
-  type        = bool
-  default     = true
-}

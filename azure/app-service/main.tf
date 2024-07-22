@@ -17,6 +17,12 @@ resource "azurerm_windows_web_app" "app_service" {
       dotnet_version = var.dotnet_version
     }
 
+    virtual_application {
+      virtual_path  = var.virtual_application.virtual_path
+      physical_path = var.virtual_application.physical_path
+      preload       = var.virtual_application.preload
+    }
+
     /*
     # Dynamically include IP restrictions if any are provided
     dynamic "ip_restriction" {

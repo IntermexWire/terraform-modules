@@ -42,7 +42,7 @@ resource "azurerm_windows_web_app" "app_service" {
   }
 
   app_settings = {
-    "APPINSIGHTS_INSTRUMENTATIONKEY"             = var.appinsights_instrumentationkey
+    "APPINSIGHTS_INSTRUMENTATIONKEY" = var.appinsights_instrumentationkey
     #"APPLICATIONINSIGHTS_CONNECTION_STRING"      = var.applicationinsights_connection_string
     "ApplicationInsightsAgent_EXTENSION_VERSION" = var.applicationinsightsagent_extension_version
     "ASPNETCORE_ENVIRONMENT"                     = var.aspnetcore_environment

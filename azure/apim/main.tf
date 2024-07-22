@@ -7,9 +7,9 @@ resource "azurerm_api_management" "apim" {
   sku_name            = var.sku_name
 
   dynamic "additional_location" {
-    for_each = [for loc in var.additional_locations : {
+    for_each = var.enable_additional_locations ? [for loc in var.additional_locations : {
       location = loc
-    } if loc != var.location]
+    } if loc != var.location] : []
 
     content {
       location = additional_location.value.location

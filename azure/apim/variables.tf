@@ -1,22 +1,22 @@
 variable "name" {
-  description = "Name for the API Management Service."
+  description = "Resource name"
+  type        = string
+}
+
+
+variable "resource_group_name" {
+  description = "Resource group name"
   type        = string
 }
 
 variable "location" {
-  description = "The primary location for the API Management Service instance."
+  description = "Resource location"
   type        = string
 }
 
-variable "additional_locations" {
-  description = "Additional locations for the API Management Service instances."
-  type        = list(string)
-  default     = []
-}
-
-variable "resource_group_name" {
-  description = "Resource group in which to create the API Management Service."
-  type        = string
+variable "tags" {
+  description = "Tags to assign to the resource."
+  type        = map(string)
 }
 
 variable "publisher_name" {
@@ -34,14 +34,22 @@ variable "sku_name" {
   type        = string
 }
 
-variable "tags" {
-  description = "A mapping of tags to assign to the resource."
-  type        = map(string)
-  default     = {}
+variable "appi_instrumentation_key" {
+  description = "The instrumentation key of the Application Insights."
+  type        = string
+  default = null
 }
 
-variable "enable_additional_locations" {
-  description = "Flag to enable additional locations."
-  type        = bool
-  default     = false
+variable "identity_type" {
+  description = "The identity type of the API Management service."
+  type        = string
+  default     = "SystemAssigned"
+  
+}
+
+variable "min_api_version" {
+  description = "The minimum API version of the API Management service."
+  type        = string
+  default     = null
+  
 }

@@ -32,3 +32,8 @@ variable "published" {
   type        = bool
   description = " (Required) Is this Product Published?"
 }
+
+variable "subscriptions_limit" {
+  type        = number
+  description = "(Required) The limit of subscriptions for this Product."
+}

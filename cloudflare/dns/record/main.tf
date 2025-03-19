@@ -1,18 +1,21 @@
-resource "cloudflare_record" "verification_txt" {
-  zone_id = var.zone_id
-  name    = var.txt_name
-  type    = "TXT" # Assuming TXT records specifically
-  value   = var.txt_record_value
-
-  tags = var.tags
+terraform {
+  required_providers {
+    cloudflare = {
+      source = "cloudflare/cloudflare"
+      version = "5.0.0-alpha1"
+    }
+  }
 }
 
-resource "cloudflare_record" "cname" {
+resource "cloudflare_dns_record" "dns_record" {
   zone_id = var.zone_id
-  name    = var.cname_name
-  value   = var.cname_record_value
-  type    = "CNAME"
+  name    = var.name
+  type    = var.type
+  content   = var.content
+  ttl     = var.ttl
   proxied = var.proxied
+
+  comment = var.comment
 
   tags = var.tags
 }

@@ -1,34 +1,19 @@
-output "record_id" {
-  value       = cloudflare_record.cname.id
+output "id" {
+  value       = cloudflare_dns_record.dns_record.id
   description = "The ID of the DNS record."
 }
 
-output "record_name" {
-  value       = cloudflare_record.cname.name
+output "name" {
+  value       = cloudflare_dns_record.dns_record.name
   description = "The name of the DNS record."
 }
 
 output "record_type" {
-  value       = cloudflare_record.cname.type
+  value       = cloudflare_dns_record.dns_record.type
   description = "The type of the DNS record."
 }
 
-output "record_value" {
-  value       = cloudflare_record.cname.value
+output "record_content" {
+  value       = cloudflare_dns_record.dns_record.content
   description = "The value of the DNS record."
-}
-
-output "record_proxied" {
-  value       = cloudflare_record.cname.proxied
-  description = "Indicates if the record is proxied through Cloudflare."
-}
-
-output "record_zone_id" {
-  value       = cloudflare_record.cname.zone_id
-  description = "The zone ID of the DNS record."
-}
-
-output "record_tags" {
-  value       = cloudflare_record.cname.tags
-  description = "The tags assigned to the DNS record."
 }

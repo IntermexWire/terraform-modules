@@ -6,20 +6,18 @@ resource "azurerm_subnet" "snet" {
 
   default_outbound_access_enabled = var.default_outbound_access
 
-  service_endpoints = var.service_endpoints
+  service_endpoints = var.enable_service_endpoints ? var.service_endpoints : []
 
-  delegation {
-    name = var.delegation_name
+  # Conditionally include the delegation block
+  dynamic "delegation" {
+    for_each = var.enable_delegation ? [1] : []
+    content {
+      name = var.delegation_name
 
-    service_delegation {
-      name    = var.delegation.name
-      actions = var.delegation.actions
+      service_delegation {
+        name    = var.delegation.name
+        actions = var.delegation.actions
+      }
     }
   }
 }
-
-resource "azurerm_subnet_nat_gateway_association" "natgw_association" {
-  subnet_id      = azurerm_subnet.snet.id
-  nat_gateway_id = var.natgw_id
-}
-

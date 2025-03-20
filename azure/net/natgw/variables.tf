@@ -4,9 +4,8 @@ variable "public_ip_name" {
 }
 
 variable "natgw_name" {
-  description = "Name of the nat gateway"
+  description = "Name of the NAT gateway"
   type        = string
-
 }
 
 variable "location" {
@@ -22,7 +21,6 @@ variable "resource_group_name" {
 variable "allocation_method" {
   description = "The allocation method to use for this Public IP. Possible values are Static and Dynamic."
   type        = string
-
 }
 
 variable "sku_name" {
@@ -34,4 +32,10 @@ variable "tags" {
   description = "A mapping of tags to assign to the resource."
   type        = map(string)
   default     = {}
+}
+
+variable "enable_nat_gateway" {
+  description = "Flag to enable or disable NAT gateway creation"
+  type        = bool
+  default     = true
 }

@@ -59,3 +59,15 @@ variable "delegation" {
     actions = []
   }
 }
+
+variable "enable_nat_gateway" {
+  description = "Flag to enable or disable NAT gateway association for the subnet"
+  type        = bool
+  default     = false
+}
+
+variable "nat_gateway_id" {
+  description = "The ID of the NAT gateway to associate with the subnet"
+  type        = string
+  default     = null
+}

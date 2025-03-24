@@ -6,5 +6,5 @@ resource "azurerm_api_management_product" "apim_product" {
   subscription_required = var.subscription_required
   approval_required     = var.approval_required
   published             = var.published
-  subscriptions_limit = var.subscriptions_limit
+  subscriptions_limit   = var.subscriptions_limit
 }

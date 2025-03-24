@@ -18,7 +18,7 @@ variable "resource_group_name" {
   type        = string
 }
 
-variable "allocation_method" {
+variable "natgw_ip_allocation_method" {
   description = "The allocation method to use for this Public IP. Possible values are Static and Dynamic."
   type        = string
 }
@@ -34,7 +34,7 @@ variable "tags" {
   default     = {}
 }
 
-variable "enable_nat_gateway" {
+variable "natgw_enabled" {
   description = "Flag to enable or disable NAT gateway creation"
   type        = bool
   default     = true

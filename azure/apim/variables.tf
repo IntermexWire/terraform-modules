@@ -37,19 +37,19 @@ variable "sku_name" {
 variable "appi_instrumentation_key" {
   description = "The instrumentation key of the Application Insights."
   type        = string
-  default = null
+  default     = null
 }
 
 variable "identity_type" {
   description = "The identity type of the API Management service."
   type        = string
   default     = "SystemAssigned"
-  
+
 }
 
 variable "min_api_version" {
   description = "The minimum API version of the API Management service."
   type        = string
   default     = null
-  
+
 }

@@ -12,7 +12,7 @@ resource "azurerm_subnet" "snet" {
   dynamic "delegation" {
     for_each = var.enable_delegation ? [1] : []
     content {
-      name = var.delegation_name
+      name = var.delegation.name
 
       service_delegation {
         name    = var.delegation.name
@@ -20,10 +20,12 @@ resource "azurerm_subnet" "snet" {
       }
     }
   }
+
+  # Removed depends_on to avoid dependency cycle
 }
 
 resource "azurerm_subnet_nat_gateway_association" "this" {
-  count          = var.enable_nat_gateway ? 1 : 0
+  count          = var.natgw_enabled ? 1 : 0
   subnet_id      = azurerm_subnet.snet.id
   nat_gateway_id = var.nat_gateway_id
 }

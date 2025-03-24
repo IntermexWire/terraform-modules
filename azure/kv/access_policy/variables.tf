@@ -11,14 +11,14 @@ variable "tenant_id" {
 variable "object_id" {
   description = "The object ID of the principal to which the access policy applies."
   type        = string
-  default = null
+  default     = null
 }
 
 variable "application_id" {
   description = "The application ID of the principal to which the access policy applies."
   type        = string
-  default = null
-  
+  default     = null
+
 }
 
 variable "key_permissions" {

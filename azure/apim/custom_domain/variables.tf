@@ -13,38 +13,38 @@ variable "key_vault_id" {
 variable "gateway_host_name" {
   description = "The host name for the gateway."
   type        = string
-  default = null
+  default     = null
 }
 
 variable "developer_portal_host_name" {
   description = "The host name for the Delevoper Portal."
   type        = string
-  default = null
+  default     = null
 }
 
 variable "management_host_name" {
   description = "The host name for the Management."
   type        = string
-  default = null
+  default     = null
 }
 
 variable "scm_host_name" {
   description = "The host name for the SCM."
   type        = string
-  default = null
-  
+  default     = null
+
 }
 
 variable "certificate" {
   description = "The certificate for the custom domain."
   type        = string
-  default = null
-  
+  default     = null
+
 }
 
 variable "certificate_password" {
   description = "The password for the certificate."
   type        = string
-  default = null
-  
+  default     = null
+
 }

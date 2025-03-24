@@ -54,5 +54,5 @@ variable "allow_tracing" {
   description = "Allow tracing for the subscription."
   type        = bool
   default     = false
-  
+
 }

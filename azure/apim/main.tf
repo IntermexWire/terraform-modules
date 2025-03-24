@@ -4,11 +4,11 @@ resource "azurerm_api_management" "apim" {
   resource_group_name = var.resource_group_name
 
   min_api_version = var.min_api_version
-   sku_name = var.sku_name
+  sku_name        = var.sku_name
 
-  publisher_name      = var.publisher_name
-  publisher_email     = var.publisher_email
- 
+  publisher_name  = var.publisher_name
+  publisher_email = var.publisher_email
+
   identity {
     type = var.identity_type
   }

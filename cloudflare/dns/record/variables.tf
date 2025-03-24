@@ -16,14 +16,14 @@ variable "content" {
 variable "type" {
   description = "The type of the DNS record."
   type        = string
-  
+
 }
 
 variable "ttl" {
   description = "The TTL of the DNS record."
   type        = number
   default     = 1
-  
+
 }
 
 
@@ -36,7 +36,7 @@ variable "proxied" {
 variable "comment" {
   description = "A comment for the DNS record."
   type        = string
-  
+
 }
 
 variable "tags" {

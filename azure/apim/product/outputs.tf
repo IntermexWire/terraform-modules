@@ -1,5 +1,5 @@
 output "id" {
-  value = azurerm_api_management_product.apim_product.id
+  value       = azurerm_api_management_product.apim_product.id
   description = "The full ID path for the API Management Product."
 }
 

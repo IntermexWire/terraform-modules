@@ -1,7 +1,7 @@
 terraform {
   required_providers {
     cloudflare = {
-      source = "cloudflare/cloudflare"
+      source  = "cloudflare/cloudflare"
       version = "5.0.0-alpha1"
     }
   }
@@ -11,7 +11,7 @@ resource "cloudflare_dns_record" "dns_record" {
   zone_id = var.zone_id
   name    = var.name
   type    = var.type
-  content   = var.content
+  content = var.content
   ttl     = var.ttl
   proxied = var.proxied
 

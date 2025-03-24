@@ -11,7 +11,7 @@ variable "key_vault_id" {
 variable "contents" {
   description = "The contents of the certificate."
   type        = string
-  
+
 }
 
 variable "certificate_password" {

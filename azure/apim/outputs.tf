@@ -38,5 +38,5 @@ output "apim_scm_url" {
 output "identity" {
   description = "The identity of the API Management Service."
   value       = azurerm_api_management.apim.identity
-  
+
 }

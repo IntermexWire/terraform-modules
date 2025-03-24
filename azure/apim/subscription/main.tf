@@ -15,5 +15,5 @@ resource "azurerm_api_management_subscription" "apim_subscription" {
   user_id             = azurerm_api_management_user.apim_user.id
   display_name        = var.display_name
   state               = var.state
-  allow_tracing         = var.allow_tracing
+  allow_tracing       = var.allow_tracing
 }

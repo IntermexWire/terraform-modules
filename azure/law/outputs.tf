@@ -1,4 +1,4 @@
-output "workspace_id" {
+output "id" {
   value       = azurerm_log_analytics_workspace.law.id
   description = "The IDs of the Log Analytics Workspaces"
 }

@@ -27,15 +27,20 @@ variable "snet_id" {
 variable "security_rules" {
   description = "A list of security rules to apply to the NSG."
   type = list(object({
-    name                       = string
-    priority                   = number
-    direction                  = string
-    access                     = string
-    protocol                   = string
-    source_port_range          = string
-    destination_port_range     = string
-    source_address_prefixes    = list(string)
-    destination_address_prefix = string
+    name                         = string
+    resource_group_name          = optional(string)
+    network_security_group_name  = optional(string)
+    description                  = optional(string)
+    priority                     = number
+    direction                    = string
+    access                       = string
+    protocol                     = string
+    source_port_range            = optional(string)
+    destination_port_range       = optional(string)
+    source_address_prefix        = optional(string)
+    source_address_prefixes      = optional(list(string))
+    destination_address_prefix   = optional(string)
+    destination_address_prefixes = optional(list(string))
   }))
-  default = []
 }
+

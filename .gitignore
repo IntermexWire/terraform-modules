@@ -35,3 +35,4 @@ terraform.rc
 
 # Ignore team-extension files
 team-extension.log
+.DS_Store

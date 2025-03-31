@@ -65,3 +65,10 @@ variable "internal_load_balancer_enabled" {
   type        = bool
   default     = false
 }
+
+variable "zone_redundancy_enabled" {
+  description = "Whether zone redundancy is enabled."
+  type        = bool
+  default     = false
+  
+}

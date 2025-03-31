@@ -3,6 +3,23 @@ output "name" {
   value       = azurerm_storage_account.sa.name
 }
 
+output "id" {
+  description = "The ID of the NAT gateway"
+  value       = azurerm_storage_account.sa.id
+}
+
+output "resource_group_name" {
+  description = "The name of the resource group in which the storage account is located"
+  value       = azurerm_storage_account.sa.resource_group_name
+  
+}
+
+output "location" {
+  description = "The location of the storage account"
+  value       = azurerm_storage_account.sa.location
+  
+}
+
 output "primary_endpoint" {
   description = "The primary endpoint for the storage account"
   value       = azurerm_storage_account.sa.primary_blob_endpoint

@@ -7,6 +7,7 @@ resource "azurerm_container_app_environment" "cae" {
   infrastructure_subnet_id           = var.infrastructure_subnet_id
   internal_load_balancer_enabled     = var.internal_load_balancer_enabled
   infrastructure_resource_group_name = var.infrastructure_resource_group_name
+  zone_redundancy_enabled         = var.zone_redundancy_enabled
 
   workload_profile {
     name                  = var.workload_profile.name

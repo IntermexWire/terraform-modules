@@ -1,11 +1,23 @@
+output "name" {
+  value       = azurerm_container_app_environment.cae.name
+  description = "The name of the Container App Environment."
+}
+
 output "id" {
   value       = azurerm_container_app_environment.cae.id
   description = "The ID of the Container App Environment."
 }
 
-output "name" {
-  value       = azurerm_container_app_environment.cae.name
-  description = "The name of the Container App Environment."
+output "resource_group_name" {
+  value       = azurerm_container_app_environment.cae.resource_group_name
+  description = "The name of the resource group in which the Container App Environment is located."
+  
+}
+
+output "location" {
+  value       = azurerm_container_app_environment.cae.location
+  description = "The location of the Container App Environment."
+  
 }
 
 output "default_domain" {
@@ -33,7 +45,7 @@ output "infrastructure_resource_group_name" {
 }
 
 output "workload_profile" {
-  value       = [for wp in azurerm_container_app_environment.cae.workload_profile : wp.name if wp.name != null]
+  value       = azurerm_container_app_environment.cae.workload_profile
   description = "The workload profile configuration for the Container App Environment."
 
 }

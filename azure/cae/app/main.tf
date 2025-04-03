@@ -4,7 +4,7 @@ resource "azurerm_container_app" "cae_app" {
 
   container_app_environment_id = var.container_app_environment_id
   revision_mode                = var.revision_mode
-  workload_profile_name = var.workload_profile_name
+  workload_profile_name        = var.workload_profile_name
 
   ingress {
     allow_insecure_connections = var.ingress_settings.allow_insecure_connections
@@ -26,6 +26,30 @@ resource "azurerm_container_app" "cae_app" {
       memory = var.container_settings.memory
     }
   }
+
+  dynamic "secret" {
+    for_each = var.secret != null ? [var.secret] : []
+    content {
+      name  = secret.value.name
+      value = secret.value.value
+    }
+  }
+
+  dynamic "registry" {
+    for_each = var.registry_settings != null ? [var.registry_settings] : []
+    content {
+      server               = registry.value.server
+      username             = registry.value.username
+      password_secret_name = registry.value.password_secret_name // Use the actual secret name
+      identity = registry.value.identity
+    }
+  }
+/*
+  identity {
+    type = var.identity.type
+    identity_ids = var.identity.identity_ids
+  }
+*/
 
   tags = var.tags
 }

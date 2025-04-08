@@ -4,27 +4,54 @@ resource "azurerm_container_app" "cae_app" {
 
   container_app_environment_id = var.container_app_environment_id
   revision_mode                = var.revision_mode
-  workload_profile_name = var.workload_profile_name
+  workload_profile_name        = var.workload_profile_name
 
   ingress {
-    allow_insecure_connections = var.ingress_settings.allow_insecure_connections
-    external_enabled           = var.ingress_settings.external_enabled
-    target_port                = var.ingress_settings.target_port
-    client_certificate_mode    = var.ingress_settings.client_certificate_mode
+    allow_insecure_connections = var.ingress.allow_insecure_connections
+    external_enabled           = var.ingress.external_enabled
+    target_port                = var.ingress.target_port
+    client_certificate_mode    = var.ingress.client_certificate_mode
     traffic_weight {
-      percentage      = var.ingress_settings.traffic_weight_percentage
-      revision_suffix = var.ingress_settings.revision_suffix
-      latest_revision = var.ingress_settings.latest_revision
+      percentage      = var.ingress.traffic_weight_percentage
+      revision_suffix = var.ingress.revision_suffix
+      latest_revision = var.ingress.latest_revision
     }
   }
 
   template {
     container {
-      name   = var.container_settings.container_name
-      image  = var.container_settings.image
-      cpu    = var.container_settings.cpu
-      memory = var.container_settings.memory
+      name   = var.container.name
+      image  = var.container.image
+      cpu    = var.container.cpu
+      memory = var.container.memory
     }
+  }
+
+  dynamic "secret" {
+    for_each = var.secret != null ? [var.secret] : []
+    content {
+      name  = secret.value.name
+      value = secret.value.value
+    }
+  }
+
+  dynamic "registry" {
+    for_each = var.registry != null ? [var.registry] : []
+    content {
+      server               = registry.value.server
+      username             = registry.value.username
+      password_secret_name = registry.value.password_secret_name // Use the actual secret name
+      identity = registry.value.identity
+    }
+  }
+
+  dynamic "identity" {
+    for_each = var.identity != null ? [var.identity] : []
+    content {
+      type        = identity.value.type
+      identity_ids = identity.value.identity_ids
+    }
+    
   }
 
   tags = var.tags

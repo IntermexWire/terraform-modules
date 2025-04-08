@@ -24,7 +24,7 @@ variable "workload_profile_name" {
   type        = string
 }
 
-variable "ingress_settings" {
+variable "ingress" {
   description = "Settings for the ingress configuration."
   type = object({
     allow_insecure_connections = optional(bool, false)
@@ -50,44 +50,44 @@ variable "ip_security_restriction" {
 }
 */
 
-variable "container_settings" {
-  description = "The container settings for the app."
+variable "container" {
+  description = "Container configuration for the app."
   type = object({
-    container_name = optional(string, "default-container")
-    image          = optional(string, "mcr.microsoft.com/azuredocs/containerapps-helloworld:latest")
-    cpu            = optional(string, "0.25")
-    memory         = optional(string, "0.5Gi")
+    name   = optional(string, "hello-world")
+    image  = optional(string, "mcr.microsoft.com/k8se/quickstart:latest")
+    cpu    = optional(string, "0.25")
+    memory = optional(string, "0.5Gi")
   })
+  default = null
 }
 
-variable "registry_settings" {
-  description = "Container registry settings for the app."
+variable "registry" {
+  description = "Registry configuration for the app."
   type = object({
     server               = optional(string, null)
     username             = optional(string, null)
     password_secret_name = optional(string, null)
     identity             = optional(string, null)
   })
+  default = null
 }
 
 variable "secret" {
   description = "A list of secrets to be used in the container app."
-  type        = object({
+  type = object({
     name  = optional(string, null)
     value = optional(string, null)
   })
+  default = null
 }
 
 variable "identity" {
-  description = "User assigned identity settings."
+  description = "Identity configuration for the app."
   type = object({
-    type        = string
-    identity_ids = list(string)
+    type        = optional(string, "SystemAssigned")
+    identity_ids = optional(list(string), [])
   })
-  default = {
-    type        = "UserAssigned"
-    identity_ids = []
-  }
+  default = null
 }
 
 variable "location" {

@@ -7,23 +7,23 @@ resource "azurerm_container_app" "cae_app" {
   workload_profile_name        = var.workload_profile_name
 
   ingress {
-    allow_insecure_connections = var.ingress_settings.allow_insecure_connections
-    external_enabled           = var.ingress_settings.external_enabled
-    target_port                = var.ingress_settings.target_port
-    client_certificate_mode    = var.ingress_settings.client_certificate_mode
+    allow_insecure_connections = var.ingress.allow_insecure_connections
+    external_enabled           = var.ingress.external_enabled
+    target_port                = var.ingress.target_port
+    client_certificate_mode    = var.ingress.client_certificate_mode
     traffic_weight {
-      percentage      = var.ingress_settings.traffic_weight_percentage
-      revision_suffix = var.ingress_settings.revision_suffix
-      latest_revision = var.ingress_settings.latest_revision
+      percentage      = var.ingress.traffic_weight_percentage
+      revision_suffix = var.ingress.revision_suffix
+      latest_revision = var.ingress.latest_revision
     }
   }
 
   template {
     container {
-      name   = var.container_settings.container_name
-      image  = var.container_settings.image
-      cpu    = var.container_settings.cpu
-      memory = var.container_settings.memory
+      name   = var.container.name
+      image  = var.container.image
+      cpu    = var.container.cpu
+      memory = var.container.memory
     }
   }
 
@@ -36,7 +36,7 @@ resource "azurerm_container_app" "cae_app" {
   }
 
   dynamic "registry" {
-    for_each = var.registry_settings != null ? [var.registry_settings] : []
+    for_each = var.registry != null ? [var.registry] : []
     content {
       server               = registry.value.server
       username             = registry.value.username
@@ -44,12 +44,15 @@ resource "azurerm_container_app" "cae_app" {
       identity = registry.value.identity
     }
   }
-/*
-  identity {
-    type = var.identity.type
-    identity_ids = var.identity.identity_ids
+
+  dynamic "identity" {
+    for_each = var.identity != null ? [var.identity] : []
+    content {
+      type        = identity.value.type
+      identity_ids = identity.value.identity_ids
+    }
+    
   }
-*/
 
   tags = var.tags
 }

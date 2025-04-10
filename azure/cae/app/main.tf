@@ -38,10 +38,10 @@ resource "azurerm_container_app" "cae_app" {
   dynamic "registry" {
     for_each = var.registry != null ? [var.registry] : []
     content {
-      server               = registry.value.server
+      server               = registry.value.server // Ensure server is defined
       username             = registry.value.username
-      password_secret_name = registry.value.password_secret_name // Use the actual secret name
-      identity = registry.value.identity
+      password_secret_name = registry.value.password_secret_name
+      identity             = registry.value.identity
     }
   }
 

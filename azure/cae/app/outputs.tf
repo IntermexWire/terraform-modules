@@ -62,3 +62,13 @@ output "ingress" {
     fqdn                       = azurerm_container_app.cae_app.ingress[0].fqdn
   }
 }
+
+output "outbound_ip_addresses" {
+  description = "The outbound IP addresses of the container app."
+  value       = azurerm_container_app.cae_app.outbound_ip_addresses
+}
+
+output "custom_domain_verification_id" {
+  description = "The custom domain verification ID of the container app."
+  value       = azurerm_container_app.cae_app.custom_domain_verification_id
+}

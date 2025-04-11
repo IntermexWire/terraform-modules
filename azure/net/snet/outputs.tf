@@ -33,11 +33,6 @@ output "service_endpoints" {
   value       = azurerm_subnet.snet.service_endpoints
 }
 
-output "natgw_enabled" {
-  description = "Indicates if the NAT gateway is enabled for the subnet."
-  value       = var.natgw_enabled
-}
-
 output "nat_gateway_id" {
   description = "The ID of the NAT gateway associated with the subnet."
   value       = var.nat_gateway_id

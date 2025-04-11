@@ -20,12 +20,9 @@ resource "azurerm_subnet" "snet" {
       }
     }
   }
-
-  # Removed depends_on to avoid dependency cycle
 }
 
 resource "azurerm_subnet_nat_gateway_association" "this" {
-  count          = var.natgw_enabled ? 1 : 0
   subnet_id      = azurerm_subnet.snet.id
   nat_gateway_id = var.nat_gateway_id
 }

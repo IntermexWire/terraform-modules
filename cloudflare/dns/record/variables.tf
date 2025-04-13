@@ -4,8 +4,9 @@ variable "name" {
 }
 
 variable "zone_id" {
-  description = "The ID of the Cloudflare zone to which the record will be added"
+  description = "The Cloudflare zone ID"
   type        = string
+  default = ""
 }
 
 variable "content" {
@@ -25,7 +26,6 @@ variable "ttl" {
   default     = 1
 
 }
-
 
 variable "proxied" {
   description = "Whether the record gets Cloudflare's origin protection"

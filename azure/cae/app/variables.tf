@@ -22,6 +22,7 @@ variable "revision_mode" {
 variable "workload_profile_name" {
   description = "The name of the workload profile."
   type        = string
+  default = null
 }
 
 variable "ingress" {

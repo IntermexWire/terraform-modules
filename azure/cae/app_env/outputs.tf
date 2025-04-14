@@ -49,3 +49,4 @@ output "workload_profile" {
   description = "The workload profile configuration for the Container App Environment."
 
 }
+

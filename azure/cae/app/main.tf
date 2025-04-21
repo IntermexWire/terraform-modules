@@ -4,7 +4,7 @@ resource "azurerm_container_app" "cae_app" {
 
   container_app_environment_id = var.container_app_environment_id
   revision_mode                = var.revision_mode
-  #workload_profile_name        = var.workload_profile_name
+  workload_profile_name        = var.workload_profile_name
 
   ingress {
     allow_insecure_connections = var.ingress.allow_insecure_connections

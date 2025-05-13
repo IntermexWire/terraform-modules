@@ -101,3 +101,15 @@ variable "tags" {
   description = "A map of tags to assign to the resource."
   type        = map(string)
 }
+
+variable "min_replicas" {
+  description = "Minimum number of instances for automatic scaling."
+  type        = number
+  default     = 1 // Default value to ensure backward compatibility
+}
+
+variable "max_replicas" {
+  description = "Maximum number of instances for automatic scaling."
+  type        = number
+  default     = 10 // Default value to ensure backward compatibility
+}

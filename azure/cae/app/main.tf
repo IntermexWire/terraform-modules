@@ -26,15 +26,10 @@ resource "azurerm_container_app" "cae_app" {
       memory = var.container.memory
     }
 
-    dynamic "scale" {
-      for_each = var.revision_mode == "Single" ? [1] : []
-      content {
-        min_replicas = var.min_replicas
-        max_replicas = var.max_replicas
-      }
-    }
+    min_replicas = var.min_replicas
+    max_replicas = var.max_replicas
   }
-    
+
   dynamic "secret" {
     for_each = var.secret != null ? [var.secret] : []
     content {

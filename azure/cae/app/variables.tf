@@ -58,6 +58,10 @@ variable "container" {
     image  = optional(string, "mcr.microsoft.com/k8se/quickstart:latest")
     cpu    = optional(string, "0.25")
     memory = optional(string, "0.5Gi")
+    env    = optional(list(object({
+      name  = string
+      value = string
+    })), [])
   })
   default = null
 }

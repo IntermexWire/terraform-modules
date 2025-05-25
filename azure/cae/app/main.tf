@@ -26,16 +26,16 @@ resource "azurerm_container_app" "cae_app" {
       memory = var.container.memory
     }
 
-    dynamic "env" {
-        for_each = var.container.env != null ? var.container.env : []
-        content {
-          name  = env.value.name
-          value = env.value.value
-        }
-      }
-
     min_replicas = var.min_replicas
     max_replicas = var.max_replicas
+  }
+
+  dynamic "env" {
+    for_each = var.container.env != null ? var.container.env : []
+    content {
+      name  = env.value.name
+      value = env.value.value
+    }
   }
 
   dynamic "secret" {

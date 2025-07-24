@@ -1,70 +1,77 @@
-output "name" {
-  description = "The name of the storage account"
-  value       = azurerm_storage_account.sa.name
-}
+# Storage Account Outputs
 
 output "id" {
-  description = "The ID of the NAT gateway"
-  value       = azurerm_storage_account.sa.id
+  description = "The ID of the storage account"
+  value       = azurerm_storage_account.this.id
 }
 
-output "resource_group_name" {
-  description = "The name of the resource group in which the storage account is located"
-  value       = azurerm_storage_account.sa.resource_group_name
-  
+output "name" {
+  description = "The name of the storage account"
+  value       = azurerm_storage_account.this.name
 }
 
-output "location" {
-  description = "The location of the storage account"
-  value       = azurerm_storage_account.sa.location
-  
+output "primary_location" {
+  description = "The primary location of the storage account"
+  value       = azurerm_storage_account.this.primary_location
 }
 
-output "primary_endpoint" {
-  description = "The primary endpoint for the storage account"
-  value       = azurerm_storage_account.sa.primary_blob_endpoint
+output "secondary_location" {
+  description = "The secondary location of the storage account"
+  value       = azurerm_storage_account.this.secondary_location
+}
+
+output "primary_blob_endpoint" {
+  description = "The endpoint URL for blob storage in the primary location"
+  value       = azurerm_storage_account.this.primary_blob_endpoint
+}
+
+output "secondary_blob_endpoint" {
+  description = "The endpoint URL for blob storage in the secondary location"
+  value       = azurerm_storage_account.this.secondary_blob_endpoint
 }
 
 output "primary_access_key" {
   description = "The primary access key for the storage account"
-  value       = azurerm_storage_account.sa.primary_access_key
+  value       = azurerm_storage_account.this.primary_access_key
+  sensitive   = true
+}
+
+output "secondary_access_key" {
+  description = "The secondary access key for the storage account"
+  value       = azurerm_storage_account.this.secondary_access_key
+  sensitive   = true
 }
 
 output "primary_connection_string" {
-  description = "The primary connection string for the storage account"
-  value       = azurerm_storage_account.sa.primary_connection_string
+  description = "The connection string associated with the primary location"
+  value       = azurerm_storage_account.this.primary_connection_string
+  sensitive   = true
 }
 
-output "nfsv3_enabled" {
-  description = "Indicates if NFSv3 is enabled for the storage account"
-  value       = azurerm_storage_account.sa.nfsv3_enabled
+output "secondary_connection_string" {
+  description = "The connection string associated with the secondary location"
+  value       = azurerm_storage_account.this.secondary_connection_string
+  sensitive   = true
 }
 
-output "sftp_enabled" {
-  description = "Indicates if SFTP is enabled for the storage account"
-  value       = azurerm_storage_account.sa.sftp_enabled
-}
-
-output "custom_domain" {
-  description = "The custom domain configuration for the storage account"
-  value       = azurerm_storage_account.sa.custom_domain
-}
-
-output "static_website" {
-  description = "The static website configuration for the storage account"
-  value       = azurerm_storage_account.sa.static_website
-}
-
-output "network_rules" {
-  description = "The network rules configuration for the storage account"
+output "containers" {
+  description = "Storage containers information"
   value = {
-    default_action             = azurerm_storage_account.sa.network_rules[0].default_action
-    ip_rules                   = azurerm_storage_account.sa.network_rules[0].ip_rules
-    virtual_network_subnet_ids = azurerm_storage_account.sa.network_rules[0].virtual_network_subnet_ids
+    for k, v in azurerm_storage_container.containers : k => {
+      id   = v.id
+      name = v.name
+      url  = "${azurerm_storage_account.this.primary_blob_endpoint}${v.name}"
+    }
   }
 }
 
-output "public_network_access_enabled" {
-  description = "Indicates if public network access is enabled for the storage account"
-  value       = azurerm_storage_account.sa.public_network_access_enabled
+output "lifecycle_policy_id" {
+  description = "The ID of the lifecycle management policy"
+  value       = try(azurerm_storage_management_policy.lifecycle[0].id, null)
+}
+
+output "sas_policy" {
+  description = "SAS policy configuration"
+  value       = var.sas_policy
+  sensitive   = true
 }

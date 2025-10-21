@@ -22,7 +22,7 @@ variable "revision_mode" {
 variable "workload_profile_name" {
   description = "The name of the workload profile."
   type        = string
-  default = null
+  default     = null
 }
 
 variable "ingress" {
@@ -34,7 +34,8 @@ variable "ingress" {
     traffic_weight_percentage  = optional(number, 100)
     revision_suffix            = optional(string, null)
     latest_revision            = optional(bool, true)
-    client_certificate_mode   = optional(string, "Ignore") 
+    client_certificate_mode    = optional(string, "Ignore")
+    transport                  = optional(string, "http")
   })
 }
 
@@ -58,11 +59,26 @@ variable "container" {
     image  = optional(string, "mcr.microsoft.com/k8se/quickstart:latest")
     cpu    = optional(string, "0.25")
     memory = optional(string, "0.5Gi")
-    env    = optional(list(object({
+    env = optional(list(object({
       name  = string
       value = string
     })), [])
+
+    probes = optional(list(object({
+      type = string # "Readiness" | "Liveness" | "Startup"
+      http_get = object({
+        path = string
+        port = number
+      })
+      initial_delay_seconds = optional(number)
+      period_seconds        = optional(number)
+      timeout_seconds       = optional(number)
+      failure_threshold     = optional(number)
+      success_threshold     = optional(number)
+    })), [])
+
   })
+
   default = null
 }
 
@@ -89,7 +105,7 @@ variable "secret" {
 variable "identity" {
   description = "Identity configuration for the app."
   type = object({
-    type        = optional(string, "SystemAssigned")
+    type         = optional(string, "SystemAssigned")
     identity_ids = optional(list(string), [])
   })
   default = null

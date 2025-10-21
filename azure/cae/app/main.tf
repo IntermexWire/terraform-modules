@@ -11,6 +11,7 @@ resource "azurerm_container_app" "cae_app" {
     external_enabled           = var.ingress.external_enabled
     target_port                = var.ingress.target_port
     client_certificate_mode    = var.ingress.client_certificate_mode
+    transport                  = var.ingress.transport  
     traffic_weight {
       percentage      = var.ingress.traffic_weight_percentage
       revision_suffix = var.ingress.revision_suffix
@@ -30,6 +31,25 @@ resource "azurerm_container_app" "cae_app" {
           name  = env.value.name
           value = env.value.value
         }
+      }
+    }
+
+    # === PROBES ===
+    dynamic "probes" {
+      for_each = try(var.container.probes, [])
+      content {
+        type = probes.value.type  # "Readiness" | "Liveness" | "Startup"
+
+        http_get {
+          path = probes.value.http_get.path
+          port = probes.value.http_get.port
+        }
+
+        initial_delay_seconds = try(probes.value.initial_delay_seconds, null)
+        period_seconds        = try(probes.value.period_seconds, null)
+        timeout_seconds       = try(probes.value.timeout_seconds, null)
+        failure_threshold     = try(probes.value.failure_threshold, null)
+        success_threshold     = try(probes.value.success_threshold, null)
       }
     }
 

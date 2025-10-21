@@ -64,19 +64,32 @@ variable "container" {
       value = string
     })), [])
 
-    probes = optional(list(object({
-      type = string # "Readiness" | "Liveness" | "Startup"
-      http_get = object({
-        path = string
-        port = number
-      })
+    readiness_probe = optional(object({
+      http_get              = object({ path = string, port = number })
       initial_delay_seconds = optional(number)
       period_seconds        = optional(number)
       timeout_seconds       = optional(number)
       failure_threshold     = optional(number)
       success_threshold     = optional(number)
-    })), [])
+    }))
 
+    liveness_probe = optional(object({
+      http_get              = object({ path = string, port = number })
+      initial_delay_seconds = optional(number)
+      period_seconds        = optional(number)
+      timeout_seconds       = optional(number)
+      failure_threshold     = optional(number)
+      success_threshold     = optional(number)
+    }))
+
+    startup_probe = optional(object({
+      http_get              = object({ path = string, port = number })
+      initial_delay_seconds = optional(number)
+      period_seconds        = optional(number)
+      timeout_seconds       = optional(number)
+      failure_threshold     = optional(number)
+      success_threshold     = optional(number)
+    }))
   })
 
   default = null

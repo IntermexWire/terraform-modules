@@ -1,6 +1,6 @@
 resource "azurerm_container_app" "cae_app" {
-  name                         = var.name
-  resource_group_name          = var.resource_group_name
+  name                = var.name
+  resource_group_name = var.resource_group_name
 
   container_app_environment_id = var.container_app_environment_id
   revision_mode                = var.revision_mode
@@ -11,7 +11,7 @@ resource "azurerm_container_app" "cae_app" {
     external_enabled           = var.ingress.external_enabled
     target_port                = var.ingress.target_port
     client_certificate_mode    = var.ingress.client_certificate_mode
-    transport                  = var.ingress.transport  
+    transport                  = var.ingress.transport
     traffic_weight {
       percentage      = var.ingress.traffic_weight_percentage
       revision_suffix = var.ingress.revision_suffix
@@ -34,22 +34,48 @@ resource "azurerm_container_app" "cae_app" {
       }
     }
 
-    # === PROBES ===
-    dynamic "probes" {
-      for_each = try(var.container.probes, [])
+    dynamic "readiness_probe" {
+      for_each = var.container.readiness_probe == null ? [] : [var.container.readiness_probe]
       content {
-        type = probes.value.type  # "Readiness" | "Liveness" | "Startup"
-
         http_get {
-          path = probes.value.http_get.path
-          port = probes.value.http_get.port
+          path = readiness_probe.value.http_get.path
+          port = readiness_probe.value.http_get.port
         }
+        initial_delay_seconds = try(readiness_probe.value.initial_delay_seconds, null)
+        period_seconds        = try(readiness_probe.value.period_seconds, null)
+        timeout_seconds       = try(readiness_probe.value.timeout_seconds, null)
+        failure_threshold     = try(readiness_probe.value.failure_threshold, null)
+        success_threshold     = try(readiness_probe.value.success_threshold, null)
+      }
+    }
 
-        initial_delay_seconds = try(probes.value.initial_delay_seconds, null)
-        period_seconds        = try(probes.value.period_seconds, null)
-        timeout_seconds       = try(probes.value.timeout_seconds, null)
-        failure_threshold     = try(probes.value.failure_threshold, null)
-        success_threshold     = try(probes.value.success_threshold, null)
+    dynamic "liveness_probe" {
+      for_each = var.container.liveness_probe == null ? [] : [var.container.liveness_probe]
+      content {
+        http_get {
+          path = liveness_probe.value.http_get.path
+          port = liveness_probe.value.http_get.port
+        }
+        initial_delay_seconds = try(liveness_probe.value.initial_delay_seconds, null)
+        period_seconds        = try(liveness_probe.value.period_seconds, null)
+        timeout_seconds       = try(liveness_probe.value.timeout_seconds, null)
+        failure_threshold     = try(liveness_probe.value.failure_threshold, null)
+        success_threshold     = try(liveness_probe.value.success_threshold, null)
+      }
+    }
+
+    dynamic "startup_probe" {
+      for_each = var.container.startup_probe == null ? [] : [var.container.startup_probe]
+      content {
+        http_get {
+          path = startup_probe.value.http_get.path
+          port = startup_probe.value.http_get.port
+        }
+        initial_delay_seconds = try(startup_probe.value.initial_delay_seconds, null)
+        period_seconds        = try(startup_probe.value.period_seconds, null)
+        timeout_seconds       = try(startup_probe.value.timeout_seconds, null)
+        failure_threshold     = try(startup_probe.value.failure_threshold, null)
+        success_threshold     = try(startup_probe.value.success_threshold, null)
       }
     }
 
@@ -79,10 +105,10 @@ resource "azurerm_container_app" "cae_app" {
   dynamic "identity" {
     for_each = var.identity != null ? [var.identity] : []
     content {
-      type        = identity.value.type
+      type         = identity.value.type
       identity_ids = identity.value.identity_ids
     }
-    
+
   }
 
   tags = var.tags

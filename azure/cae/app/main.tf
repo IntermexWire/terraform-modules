@@ -25,6 +25,7 @@ resource "azurerm_container_app" "cae_app" {
       image  = var.container.image
       cpu    = var.container.cpu
       memory = var.container.memory
+
       dynamic "env" {
         for_each = var.container.env != null ? var.container.env : []
         content {
@@ -32,56 +33,52 @@ resource "azurerm_container_app" "cae_app" {
           value = env.value.value
         }
       }
-    }
 
-    dynamic "readiness_probe" {
-      for_each = var.container.readiness_probe == null ? [] : [var.container.readiness_probe]
-      content {
-        http_get {
-          path = readiness_probe.value.http_get.path
-          port = readiness_probe.value.http_get.port
+      dynamic "readiness_probe" {
+        for_each = var.container.readiness_probe == null ? [] : [var.container.readiness_probe]
+        content {
+          transport               = readiness_probe.value.transport
+          port                    = readiness_probe.value.port
+          path                    = try(readiness_probe.value.path, null)
+          initial_delay           = try(readiness_probe.value.initial_delay, null)
+          interval_seconds        = try(readiness_probe.value.interval_seconds, null)
+          timeout                 = try(readiness_probe.value.timeout, null)
+          failure_count_threshold = try(readiness_probe.value.failure_count_threshold, null)
         }
-        initial_delay_seconds = try(readiness_probe.value.initial_delay_seconds, null)
-        period_seconds        = try(readiness_probe.value.period_seconds, null)
-        timeout_seconds       = try(readiness_probe.value.timeout_seconds, null)
-        failure_threshold     = try(readiness_probe.value.failure_threshold, null)
-        success_threshold     = try(readiness_probe.value.success_threshold, null)
       }
-    }
 
-    dynamic "liveness_probe" {
-      for_each = var.container.liveness_probe == null ? [] : [var.container.liveness_probe]
-      content {
-        http_get {
-          path = liveness_probe.value.http_get.path
-          port = liveness_probe.value.http_get.port
+      dynamic "liveness_probe" {
+        for_each = var.container.liveness_probe == null ? [] : [var.container.liveness_probe]
+        content {
+          transport               = liveness_probe.value.transport
+          port                    = liveness_probe.value.port
+          path                    = try(liveness_probe.value.path, null)
+          initial_delay           = try(liveness_probe.value.initial_delay, null)
+          interval_seconds        = try(liveness_probe.value.interval_seconds, null)
+          timeout                 = try(liveness_probe.value.timeout, null)
+          failure_count_threshold = try(liveness_probe.value.failure_count_threshold, null)
         }
-        initial_delay_seconds = try(liveness_probe.value.initial_delay_seconds, null)
-        period_seconds        = try(liveness_probe.value.period_seconds, null)
-        timeout_seconds       = try(liveness_probe.value.timeout_seconds, null)
-        failure_threshold     = try(liveness_probe.value.failure_threshold, null)
-        success_threshold     = try(liveness_probe.value.success_threshold, null)
       }
-    }
 
-    dynamic "startup_probe" {
-      for_each = var.container.startup_probe == null ? [] : [var.container.startup_probe]
-      content {
-        http_get {
-          path = startup_probe.value.http_get.path
-          port = startup_probe.value.http_get.port
+      dynamic "startup_probe" {
+        for_each = var.container.startup_probe == null ? [] : [var.container.startup_probe]
+        content {
+          transport               = startup_probe.value.transport
+          port                    = startup_probe.value.port
+          path                    = try(startup_probe.value.path, null)
+          initial_delay           = try(startup_probe.value.initial_delay, null)
+          interval_seconds        = try(startup_probe.value.interval_seconds, null)
+          timeout                 = try(startup_probe.value.timeout, null)
+          failure_count_threshold = try(startup_probe.value.failure_count_threshold, null)
         }
-        initial_delay_seconds = try(startup_probe.value.initial_delay_seconds, null)
-        period_seconds        = try(startup_probe.value.period_seconds, null)
-        timeout_seconds       = try(startup_probe.value.timeout_seconds, null)
-        failure_threshold     = try(startup_probe.value.failure_threshold, null)
-        success_threshold     = try(startup_probe.value.success_threshold, null)
       }
+
     }
 
     min_replicas = var.min_replicas
     max_replicas = var.max_replicas
   }
+
 
 
 

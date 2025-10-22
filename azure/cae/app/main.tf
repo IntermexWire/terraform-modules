@@ -84,6 +84,7 @@ resource "azurerm_container_app" "cae_app" {
   }
 
 
+
   dynamic "secret" {
     for_each = var.secret != null ? [var.secret] : []
     content {
